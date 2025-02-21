@@ -1,9 +1,17 @@
 import os
+from dotenv import load_dotenv
 import google.generativeai as genai
 from pathlib import Path
 
+# Load environment variables from .env file
+load_dotenv()
+
 # Configure the API
-genai.configure(api_key=os.environ["GEMINI_API_KEY"])
+api_key = os.getenv("GOOGLE_API_KEY_GEMINI")
+if not api_key:
+    raise ValueError("GOOGLE_API_KEY_GEMINI not found in environment variables. Please check your .env file.")
+
+genai.configure(api_key=api_key)
 
 def upload_to_gemini(path, mime_type=None):
     """Uploads the given file to Gemini."""
