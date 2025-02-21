@@ -1,0 +1,97 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Dakota-English Dictionary Entry",
+  "description": "Schema for extracting information from a single entry in a Dakota-English dictionary.",
+  "type": "object",
+  "properties": {
+    "dakota_word": {
+      "type": "string",
+      "description": "The Dakota word being defined."
+    },
+    "phonetic_transcription": {
+      "type": "string",
+      "description": "Phonetic transcription of the Dakota word, if provided. May contain OCR errors.",
+       "examples": [
+        "wa-ya'-wa-6iij-ya-ka-pi",
+        "wa-ya'-wa-ciij-yarj-za"
+       ]
+    },
+    "part_of_speech": {
+      "type": "string",
+      "description": "The part of speech of the Dakota word (e.g., v., n., adj., adv.). May be abbreviated.",
+      "examples": ["v", "n", "adj", "adv"]
+    },
+    "english_definition": {
+      "type": "string",
+      "description": "The English definition of the Dakota word. May contain multiple senses, separated by semicolons or numbers.",
+       "examples": [
+         "to make a noise or bustle.",
+         "to be or exist in.",
+          "very much; i. q. ota"
+      ]
+    },
+    "related_words": {
+    "type": "array",
+    "description": "array contain related words, and alternative spellings",
+    "items":{
+        "type": "string"
+        }
+    },
+    "alternative_forms": {
+      "type": "array",
+      "description": "Alternative spellings or forms of the Dakota word, if provided. May contain dialectal variations.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "dialect": {
+      "type": "string",
+      "description": "The Dakota dialect the word belongs to, if specified (e.g., T. for Teton, Ih. for Ihanktonwan).",
+      "enum": ["T", "Ih", "Sisitonwan", "Yankton", "Santee", null],
+        "examples":[
+            "T."
+        ]
+    },
+    "example_sentences": {
+      "type": "array",
+      "description": "Example sentences in Dakota and English, if provided.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "dakota": {
+            "type": "string",
+            "description": "Example sentence in Dakota."
+          },
+          "english": {
+            "type": "string",
+            "description": "Example sentence in English."
+          }
+        },
+        "required": ["dakota", "english"]
+      }
+    },
+    "notes": {
+      "type": "string",
+      "description": "Any additional notes, etymological information, or usage examples.  This is a catch-all for anything that doesn't fit neatly into the other fields.",
+      "examples":[
+          "See wacirjcica.",
+          "I. q. owasirj pepeya bosdari yarjka, it is becoming dry."
+      ]
+    },
+    "page_number": {
+      "type": "integer",
+      "description": "The page number in the original document where the entry is found. Useful for referencing back."
+    },
+        "ocr_confidence": {
+      "type": "number",
+      "format": "float",
+      "description": "A confidence score (0.0 to 1.0) representing the OCR engine's confidence in the accuracy of the extracted text.  This would need to be provided by the OCR process.",
+      "minimum": 0.0,
+      "maximum": 1.0
+    }
+  },
+  "required": [
+    "dakota_word",
+    "english_definition"
+  ]
+}
